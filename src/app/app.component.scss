@@ -1,0 +1,28 @@
+:host {
+  height:100vh;
+  display: grid;
+  grid-template:
+    [head-left] "head" 60px [head-right]
+    [main-left] "main" auto [main-right]
+    [foot-left] "foot" 40px [foot-right]
+    / 1fr;
+
+  app-header {
+    grid-area: head;
+    z-index:4;
+  }
+
+  app-sidebar {
+    grid-area: nav;
+  }
+
+  main {
+    grid-area: main;
+  }
+
+  app-footer {
+    grid-area: foot;
+    z-index:4;
+
+  }
+}

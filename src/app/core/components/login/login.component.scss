@@ -1,0 +1,11 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+
+      .login-card {
+        position:absolute;
+        width: 300px;
+        left:35vw;
+        top: 30vh;
+      }
+}

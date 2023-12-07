@@ -1,0 +1,43 @@
+:host {
+  height:100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  h3 {
+    height: 30px;
+  }
+  .stepper{
+    height:90%;
+
+    .step-container {
+      display: flex;
+      min-height:60vh;
+      flex-direction: column;
+      margin-top:2rem;
+      gap:15px;
+      justify-content:flex-start;
+
+      mat-form-field.textarea {
+          width: 100%;
+          height:350px;
+      }
+
+      mat-form-field.recipe-name {
+          width:60%;
+      }
+
+      app-search-food,app-ingredients-fields-list {
+        width: 100%;
+      }
+
+    }
+
+    .stepper-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+
+  }
+
+}

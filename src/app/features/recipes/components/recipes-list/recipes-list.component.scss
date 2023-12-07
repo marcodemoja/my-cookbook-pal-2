@@ -1,0 +1,21 @@
+:host {
+  .mat-column-actions {
+    width: 10rem;
+  }
+  .action-btns {
+    display: flex;
+    width:50px;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      margin:0.4rem;
+      min-width: auto!important;
+      mat-icon {
+        top:2px;
+        font-size: 0.8rem;
+        margin: 0;
+        padding:0;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+:host {
+  max-height:45vh;
+  overflow: auto;
+  .delete {
+    ::before {
+      font-family: "Font Awesome 6 Free";
+      content: "\f2ed";
+      font-weight: 900;
+      padding-right: 5px;
+    }
+  }
+
+  ::ng-deep {
+
+    .mat-mdc-form-field,
+    .mdc-text-field--outlined {
+      height: 40px;
+      width: 90px;
+    }
+
+    .mdc-text-field--outlined {
+      padding-left: 10px;
+      margin-top: 0px;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding-top: 7px !important;
+    }
+  }
+}

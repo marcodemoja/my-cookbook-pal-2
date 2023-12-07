@@ -1,0 +1,18 @@
+export interface IFood {
+  id?: String,
+  food_name: String,
+  brand_name?: String,
+  serving_qty?: Number,
+  serving_unit: String,
+  serving_weight_grams?: Number,
+  calories?: Number,
+  total_fat?: Number,
+  saturated_fat?: Number,
+  cholesterol?: Number,
+  sodium?: Number,
+  total_carbohydrate?: Number,
+  dietary_fiber?: Number,
+  sugars?: Number,
+  protein?: Number,
+  potassium?: Number,
+}

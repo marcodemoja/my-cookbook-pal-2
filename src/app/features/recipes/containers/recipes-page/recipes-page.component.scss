@@ -1,0 +1,28 @@
+@use '../../../../../assets/scss/mixins';
+@import '../../../../../assets/scss/variables';
+
+:host {
+  .wrapper {
+    height: 100%;
+    .sidenav {
+      width: 12vw;
+      @include mixins.background-color($secondary, '100');
+      ul.menu {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        align-items: left;
+        li {
+          height: 35px;
+        }
+      }
+    }
+
+    .content {
+       padding: 12px;
+       display:flex;
+       justify-content: center;
+    }
+  }
+}

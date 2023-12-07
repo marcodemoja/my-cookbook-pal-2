@@ -1,0 +1,6 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin background-color($colormap, $value){
+  background-color: map.get($colormap, $value);
+}

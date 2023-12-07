@@ -1,0 +1,31 @@
+
+@use '@angular/material' as mat;
+@import './variables';
+@include mat.core();
+
+$my-typography: mat.define-typography-config();
+$cookbook-theme: mat.define-light-theme((
+  color: (
+    primary: $cookbook-primary-palette,
+    accent: $cookbook-accent-palette,
+    warn: $cookbook-warning-palette
+  ),
+  typography: $my-typography,
+  density: 0
+));
+
+
+@include mat.core-theme($cookbook-theme);
+@include mat.button-theme($cookbook-theme);
+@include mat.form-field-theme($cookbook-theme);
+@include mat.sidenav-theme($cookbook-theme);
+@include mat.stepper-theme($cookbook-theme);
+@include mat.autocomplete-theme($cookbook-theme);
+@include mat.table-theme($cookbook-theme);
+@include mat.paginator-theme($cookbook-theme);
+@include mat.tooltip-theme($cookbook-theme);
+@include mat.progress-spinner-theme($cookbook-theme);
+@include mat.card-theme($cookbook-theme);
+
+@include mat.typography-hierarchy($my-typography);
+

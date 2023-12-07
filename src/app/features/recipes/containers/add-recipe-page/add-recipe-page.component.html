@@ -1,0 +1,61 @@
+<h3>Add New Recipe</h3>
+<mat-stepper [linear]="false" #stepper class="stepper">
+  <mat-step [stepControl]="step1" label="Recipe Name and Descrition">
+    <form [formGroup]="step1">
+      <div class="step-container">
+        <mat-form-field color="primary" class="recipe-name">
+          <mat-label>Recipe Name</mat-label>
+          <input matInput placeholder="Ex. oats" formControlName="name">
+        </mat-form-field>
+        <mat-form-field color="primary" class="textarea">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="stepper-buttons">
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="step2" label="Add Ingredients">
+    <form [formGroup]="step2">
+      <div class="step-container" formArrayName="ingredients">
+        <app-search-food (search)="onSearchIngredients($event)" (itemSelected)="onSelectIngredient($event)"
+          [searchResult$]="ingredientsSearchResult$"></app-search-food>
+        <app-ingredients-fields-list [formGroup]="step2" [ingredients]="recipeIngredients$"
+          (delete)="removeIngredient($event)">
+        </app-ingredients-fields-list>
+      </div>
+      <div class="stepper-buttons">
+        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="step3" label="Instructions">
+    <form [formGroup]="step3">
+      <div class="step-container">
+        <mat-form-field color="primary" class="textarea">
+          <mat-label>Instructions</mat-label>
+          <textarea matInput formControlName="preparation"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="stepper-buttons">
+        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Review</ng-template>
+    <div class="step-container">
+      <div class="stepper-buttons">
+        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+      </div>
+    </div>
+  </mat-step>
+</mat-stepper>

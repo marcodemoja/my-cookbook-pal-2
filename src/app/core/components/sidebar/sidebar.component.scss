@@ -1,0 +1,7 @@
+@use 'sass:map';
+@import '../../../../assets/scss/variables';
+
+:host {
+  box-shadow: 5px 0px 4px map.get($shadow, 'light');
+
+}

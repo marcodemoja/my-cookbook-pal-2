@@ -1,0 +1,42 @@
+@use 'sass:map';
+@use '../../../../assets/scss/mixins';
+@import '../../../../assets/scss/variables';
+
+:host{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 3px map.get($shadow, 'light');
+  @include mixins.background-color($primary, '200');
+
+  header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95vw;
+  height: 3rem;
+
+  .logo {
+    ::before {
+      font-family: "Font Awesome 6 Free";
+      content: "\e598";
+      font-weight: 900;
+      color: map.get($primary, '900');
+      padding-right:5px;
+    }
+
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 15rem;
+  }
+
+  .profile {
+
+  }
+
+}
+}

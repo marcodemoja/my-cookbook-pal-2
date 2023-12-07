@@ -1,0 +1,36 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+$cookbook-primary-palette: mat.define-palette(mat.$amber-palette);
+$cookbook-accent-palette: mat.define-palette(mat.$yellow-palette);
+$cookbook-warning-palette: mat.define-palette(mat.$red-palette);
+
+$primary: (
+  "900": mat.get-color-from-palette($cookbook-primary-palette, 900),
+  "800": mat.get-color-from-palette($cookbook-primary-palette, 800),
+  "700": mat.get-color-from-palette($cookbook-primary-palette, 700),
+  "600": mat.get-color-from-palette($cookbook-primary-palette, 600),
+  "500": mat.get-color-from-palette($cookbook-primary-palette, 500),
+  "400": mat.get-color-from-palette($cookbook-primary-palette, 400),
+  "300": mat.get-color-from-palette($cookbook-primary-palette, 300),
+  "200": mat.get-color-from-palette($cookbook-primary-palette, 200),
+  "100": mat.get-color-from-palette($cookbook-primary-palette, 100),
+);
+
+$secondary: (
+  "900": mat.get-color-from-palette($cookbook-accent-palette, 900),
+  "800": mat.get-color-from-palette($cookbook-accent-palette, 800),
+  "700": mat.get-color-from-palette($cookbook-accent-palette, 700),
+  "600": mat.get-color-from-palette($cookbook-accent-palette, 600),
+  "500": mat.get-color-from-palette($cookbook-accent-palette, 500),
+  "400": mat.get-color-from-palette($cookbook-accent-palette, 400),
+  "300": mat.get-color-from-palette($cookbook-accent-palette, 300),
+  "200": mat.get-color-from-palette($cookbook-accent-palette, 200),
+  "100": mat.get-color-from-palette($cookbook-accent-palette, 100),
+);
+
+$shadow: (
+  "light": #ddd,
+  "default": #ccc,
+  "dark": #aaa
+)
