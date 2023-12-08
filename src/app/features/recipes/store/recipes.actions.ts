@@ -63,9 +63,4 @@ export const filterRecipesByName = createAction(
 export const saveRecipeFields = createAction(
   `${recipesKey} Save Recipe Values`,
   props<{ values: Partial<Recipe>}>()
-)
-
-export const apiError = createAction(
-  `${recipesKey} Api Error`,
-  props<{ error: HttpErrorResponse }>()
 );

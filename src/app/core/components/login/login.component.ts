@@ -5,10 +5,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatCard, MatCardActions, MatCardModule } from '@angular/material/card';
-import { Store } from '@ngrx/store';
+import { MatCardModule } from '@angular/material/card';
 import { HeaderComponent } from '../header/header.component';
-import { AuthenticationService } from '../../services/authentication.service';
+import { StoreFacadeService } from '../../../store/store.facade';
+import { SignIn } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -31,24 +31,21 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class LoginComponent {
 
   private readonly fb = inject(FormBuilder);
-  private readonly authSvc = inject(AuthenticationService);
+  private readonly storeSvc = inject(StoreFacadeService);
 
   protected readonly form = this.fb.group({
         email: ['', Validators.required],
         password: ['', Validators.required]
       })
 
-  onSubmit() {
+  onSignIn() {
     if(this.form.valid) {
       //dispatch login action
-      this.authSvc.login(this.form.get('email')?.value as string,
-       this.form.get('password')?.value as string)
+      const user: SignIn = {
+        email: this.form.get('email')?.value as string,
+        password: this.form.get('password')?.value as string
+      }
+      this.storeSvc.signIn(user)
     }
   }
-
-  ngOnInit() {
-
-  }
-
-
 }

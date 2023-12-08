@@ -1,13 +1,15 @@
 import { Injectable, inject } from "@angular/core";
-import { recipesFeature } from "./recipes.state";
+import { recipesFeature } from "../features/recipes/store/recipes.state";
 import { Store } from "@ngrx/store";
-import * as recipesActions from './recipes.actions';
-import { Recipe } from "../models/recipe.model";
+import * as recipesActions from '../features/recipes/store/recipes.actions';
+import * as appActions from './app.actions';
+import { Recipe } from "../features/recipes/models/recipe.model";
+import { SignIn, User } from "../core/models/user";
 
 @Injectable({
   providedIn: 'root'
 })
-export class RecipesStoreFacadeService {
+export class StoreFacadeService {
   store = inject(Store);
   recipesSignal = this.store.selectSignal(recipesFeature.selectAll);
   recipesLoadedSignal = this.store.selectSignal(recipesFeature.selectRecipesLoaded);
@@ -45,6 +47,18 @@ export class RecipesStoreFacadeService {
 
   deleteRecipe(id: string): void {
     this.store.dispatch(recipesActions.deleteRecipe({id}))
+  }
+
+  signIn(user: SignIn) {
+    this.store.dispatch(appActions.signIn({user}))
+  }
+
+  signOut() {
+    this.store.dispatch(appActions.signOut())
+  }
+
+  verifyToken() {
+    this.store.dispatch(appActions.verifyToken());
   }
 
 }

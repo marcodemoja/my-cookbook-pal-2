@@ -3,13 +3,15 @@ import { PreloadAllModules, provideRouter, withPreloading } from '@angular/route
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { isDevMode } from '@angular/core';
 import { routes } from './app.routes';
-import { provideStore } from '@ngrx/store';
+import { provideStore, provideState } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
-import { reducer } from './store/app.state';
+import { appState, reducer } from './store/app.state';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { SpooncularInterceptor } from './interceptors/nutritionx-api.interceptor';
+import * as effects from './store/app.effects';
+import { apiInterceptor } from './interceptors/api.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,10 +24,11 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimationsAsync(),
     provideHttpClient(
-      withInterceptors([SpooncularInterceptor])
+      withInterceptors([SpooncularInterceptor, apiInterceptor])
     ),
     provideStore(reducer),
-    provideEffects(),
+    provideState(appState),
+    provideEffects(effects),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: isDevMode(), // Restrict extension to log-only mode

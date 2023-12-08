@@ -1,5 +1,14 @@
 export interface User {
   email: string;
-  name: string;
-  password: string;
 }
+export interface LoggedUser extends User {
+  name: string;
+  token: string;
+}
+export type SignIn = {
+  email: string,
+  password: string
+}
+
+
+

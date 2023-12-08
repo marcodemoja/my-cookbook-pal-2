@@ -4,8 +4,13 @@ import { AuthGuard } from './core/services/auth.guard';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
     path: 'recipes',
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./features/recipes')
       .then(m => m.recipesRoutes)
 

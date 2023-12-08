@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import {Router} from '@angular/router';
 import { RecipesListComponent } from '../../components/recipes-list/recipes-list.component';
 import { Recipe } from '../../models/recipe.model';
-import { RecipesStoreFacadeService } from '../../store/store.facade';
+import { StoreFacadeService } from '../../../../store/store.facade';
 
 @Component({
   selector: 'app-recipes-list-page',
@@ -18,7 +18,7 @@ import { RecipesStoreFacadeService } from '../../store/store.facade';
 export class RecipesListPageComponent {
   route = inject(ActivatedRoute);
   router = inject(Router);
-  storeSvc = inject(RecipesStoreFacadeService);
+  storeSvc = inject(StoreFacadeService);
   recipes:Signal<Recipe[]> = this.storeSvc.recipesSignal;
 
   onDeleteRecipe(id: string):void {

@@ -5,17 +5,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
-import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { NutritionXService } from '../../../../shared/services/nutrition-x.service';
 import { InstantSearchItemResponse } from '../../../../shared/interfaces/nutritionx/responses';
-import { RecipesStoreFacadeService } from '../../store/store.facade';
+import { StoreFacadeService } from '../../../../store/store.facade';
 import { IngredientsFieldsListComponent } from '../../components/ingredients-fields-list/ingredients-fields-list.component';
 import { SearchFoodComponent } from '../../../../shared/components/search-food/search-food.component';
 import { Ingredient, Recipe } from '../../models/recipe.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FoodService } from '../../../foods/services/food.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-add-recipe-page',
   standalone: true,
@@ -40,7 +41,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class AddRecipePageComponent {
 
   private readonly fb: FormBuilder = inject(FormBuilder)
-  private readonly storeFacadeSvc = inject(RecipesStoreFacadeService);
+  private readonly storeFacadeSvc = inject(StoreFacadeService);
   private readonly nutritionXSvc = inject(NutritionXService);
   private readonly foodSvc = inject(FoodService);
   private readonly route = inject(ActivatedRoute);
@@ -87,7 +88,7 @@ export class AddRecipePageComponent {
   }
 
   onSelectIngredient(ingredient: string): void {
-    this.foodSvc.getFoodNutrientsByNameAndSave(ingredient).subscribe((facts) => {
+    this.foodSvc.getFoodNutrientsByNameAndSave(ingredient).pipe(untilDestroyed(this)).subscribe((facts) => {
       const ingredient: Ingredient = {
         food_id: facts.id as string,
         food_name: facts.food_name as string,

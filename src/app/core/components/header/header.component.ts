@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLinkWithHref } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+import { StoreFacadeService } from '../../../store/store.facade';
 
 @Component({
   selector: 'app-header',
@@ -9,5 +11,9 @@ import { RouterLinkWithHref } from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  private readonly storeSvc = inject(StoreFacadeService);
 
+  onSingOut() {
+    this.storeSvc.signOut();
+  }
 }

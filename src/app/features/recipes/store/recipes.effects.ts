@@ -2,8 +2,8 @@ import { inject } from '@angular/core';
 import { createEffect, Actions, ofType } from "@ngrx/effects";
 import { catchError, switchMap, of, map, exhaustMap, tap } from 'rxjs';
 import { RecipesApiService } from '../services/recipes-api.service';
-import { fetchRecipes, fetchRecipesSuccess, addRecipe, addRecipeSuccess,
-  apiError, editRecipe, editRecipeSuccess, fetchRecipe, fetchRecipeSuccess } from './recipes.actions';
+import { fetchRecipes, fetchRecipesSuccess, addRecipe, addRecipeSuccess, editRecipe, editRecipeSuccess, fetchRecipe, fetchRecipeSuccess } from './recipes.actions';
+import {apiError} from '../../../store/app.actions'
 import { HttpErrorResponse } from '@angular/common/http';
 import { Update } from '@ngrx/entity';
 import { Recipe } from '../models/recipe.model';
