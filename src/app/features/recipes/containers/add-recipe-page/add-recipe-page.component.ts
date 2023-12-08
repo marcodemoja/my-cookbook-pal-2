@@ -87,7 +87,7 @@ export class AddRecipePageComponent {
   }
 
   onSelectIngredient(ingredient: string): void {
-    this.foodSvc.getFoodNutrientsByNameAndSave(ingredient).pipe(takeUntilDestroyed()).subscribe((facts) => {
+    this.foodSvc.getFoodNutrientsByNameAndSave(ingredient).subscribe((facts) => {
       const ingredient: Ingredient = {
         food_id: facts.id as string,
         food_name: facts.food_name as string,
