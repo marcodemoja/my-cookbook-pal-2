@@ -12,6 +12,8 @@ import { StoreFacadeService } from '../../../store/store.facade';
 })
 export class HeaderComponent {
   private readonly storeSvc = inject(StoreFacadeService);
+  private readonly authSvc = inject(AuthenticationService);
+  user = this.authSvc.userInfo;
 
   onSingOut() {
     this.storeSvc.signOut();

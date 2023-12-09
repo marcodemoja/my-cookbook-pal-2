@@ -7,7 +7,7 @@
         <a [routerLink]="['/ingredients']">Ingredients</a>
     </nav>
     <div class="profile">
-      Welcome, User
-      <a (click)="onSingOut();">Logout</a>
+      Welcome, {{user()?.name}}
+      <a href="/login" (click)="onSingOut();">Logout</a>
     </div>
 </header>

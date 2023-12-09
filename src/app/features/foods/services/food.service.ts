@@ -5,9 +5,6 @@ import { environment } from '../../../../environments/environment';
 import { IFood } from '../../../shared/interfaces/IFood';
 import { NutritionXService } from '../../../shared/services/nutrition-x.service';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class FoodService {
 
   private base_url = `${environment.apiBaseUrl}/food`;

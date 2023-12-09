@@ -17,6 +17,7 @@ export class AuthenticationService {
   baseEndpoint = `${environment.apiBaseUrl}/auth`;
 
   isUserLogged = signal(false);
+  userInfo = signal<LoggedUser|null>(null);
 
   verifySessionStorageToken():Observable<LoggedUser|null> {
     const token = sessionStorage.getItem('token')!;
@@ -25,6 +26,7 @@ export class AuthenticationService {
         tap((res) => {
           if( res.headers.get('x-auth-token') === token) {
             this.isUserLogged.set(true);
+            this.userInfo.set(res.body?.user!);
             this.router.navigate(['recipes', 'list'])
           } else {
             this.isUserLogged.set(false);
@@ -47,6 +49,7 @@ export class AuthenticationService {
 
         if(sessionStorage.getItem('token') !== null){
           this.isUserLogged.set(true);
+          this.userInfo.set(res.body?.user!);
           this.router.navigate(['recipes', 'list']);
         }
       })
@@ -62,7 +65,6 @@ export class AuthenticationService {
     sessionStorage.removeItem('name');
     sessionStorage.removeItem('email');
     this.isUserLogged.set(false);
-    this.router.navigate(['login']);
   }
 
 }

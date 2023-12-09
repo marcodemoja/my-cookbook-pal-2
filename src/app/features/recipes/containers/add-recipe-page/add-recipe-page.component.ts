@@ -32,7 +32,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
     IngredientsFieldsListComponent
   ],
   providers: [
-    NutritionXService
+    NutritionXService,
+    FoodService
   ],
   templateUrl: './add-recipe-page.component.html',
   styleUrl: './add-recipe-page.component.scss',
