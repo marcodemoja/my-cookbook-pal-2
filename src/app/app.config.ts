@@ -9,7 +9,6 @@ import { provideEffects } from '@ngrx/effects';
 import { appState, reducer } from './store/app.state';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { SpooncularInterceptor } from './interceptors/nutritionx-api.interceptor';
 import * as effects from './store/app.effects';
 import { apiInterceptor } from './interceptors/api.interceptor';
 
@@ -24,7 +23,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimationsAsync(),
     provideHttpClient(
-      withInterceptors([SpooncularInterceptor, apiInterceptor])
+      withInterceptors([apiInterceptor])
     ),
     provideStore(reducer),
     provideState(appState),

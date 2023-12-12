@@ -1,0 +1,14 @@
+<div class="wrapper">
+  @if(!isSignUp) {
+    <app-login [form]="signInForm" (submit)="onSignIn()"></app-login>
+  } @else {
+    <app-signup [form]="signUpForm" (submit)="onSignUp()"></app-signup>
+  }
+<div class="sign-up" (click)="switchForm()">
+  @if(this.isSignUp) {
+    Sign In
+  } @else {
+    Create an account
+  }
+</div>
+</div>

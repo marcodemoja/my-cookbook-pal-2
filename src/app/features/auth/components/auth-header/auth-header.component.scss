@@ -1,0 +1,21 @@
+@use 'sass:map';
+@use '../../../../../assets/scss/mixins';
+@import '../../../../../assets/scss/variables';
+
+  // @include mixins.background-color($secondary, '100');
+
+:host {
+  mat-card-header {
+    color: map.get($primary, '900');
+    margin: 1em;
+
+    ::before {
+      font-family: "Font Awesome 6 Free";
+      content: "\e598";
+      font-weight: 900;
+      color: map.get($primary, '700');
+      padding-right: 5px;
+
+    }
+  }
+}

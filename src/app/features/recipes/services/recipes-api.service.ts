@@ -11,7 +11,7 @@ export class RecipesApiService {
   private readonly apiSuffix = '/recipe'
 
   save(recipe: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(`${environment.apiBaseUrl}${this.apiSuffix}`, recipe).pipe(
+    return this.http.post<Recipe>(`${environment.apiBaseUrl}${this.apiSuffix}/create`, recipe).pipe(
       map((recipe) => recipe))
   }
 

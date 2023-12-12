@@ -1,5 +1,5 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
-import { LoggedUser } from "../core/models/user";
+import { LoggedUser } from "../core/interfaces/user";
 import * as appActions from './app.actions';
 
 export interface AppState {

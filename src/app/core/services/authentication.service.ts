@@ -1,6 +1,6 @@
 import { Inject, Injectable, Signal, computed, effect, inject, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { LoggedUser, SignIn, User } from '../models/user';
+import { LoggedUser, SignIn, User } from '../interfaces/user';
 import { HttpClient, HttpClientModule, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, catchError, map, of, switchMap, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
