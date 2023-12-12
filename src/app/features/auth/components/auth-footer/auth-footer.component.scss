@@ -1,0 +1,11 @@
+:host {
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      margin-left: 1rem;
+    }
+  }
+}

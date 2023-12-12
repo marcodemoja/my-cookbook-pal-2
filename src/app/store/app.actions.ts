@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User, LoggedUser, SignIn} from '../core/models/user';
+import { User, LoggedUser, SignIn} from '../core/interfaces/user';
 import { HttpErrorResponse } from '@angular/common/http';
 
 

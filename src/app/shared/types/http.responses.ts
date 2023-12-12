@@ -1,4 +1,4 @@
-import { LoggedUser } from "../../core/models/user";
+import { LoggedUser } from "../../core/interfaces/user";
 
 export type ResponseSuccessSignIn = {
   user: LoggedUser;

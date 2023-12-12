@@ -10,5 +10,9 @@ export type SignIn = {
   password: string
 }
 
+export type SignUp = SignIn & {
+  name: string
+}
+
 
 

@@ -1,15 +1,14 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { Observable, catchError, map, of, switchMap, tap } from 'rxjs';
+import { Observable, catchError, debounceTime, distinctUntilChanged, map, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IFood } from '../../../shared/interfaces/IFood';
-import { NutritionXService } from '../../../shared/services/nutrition-x.service';
+import { InstantSearchItemResponse, InstantSearchResponse } from '../../../shared/interfaces/nutritionx/responses';
 
 export class FoodService {
 
   private base_url = `${environment.apiBaseUrl}/food`;
   private readonly http = inject(HttpClient);
-  private readonly nutritionXSvc = inject(NutritionXService);
   selectedFoodWithFacts = signal({});
 
   add(food: IFood): Observable<IFood> {
@@ -21,22 +20,26 @@ export class FoodService {
   }
 
   getFoodByName(food_name: string): Observable<IFood> {
-    return this.http.get<IFood>(`${this.base_url}/findOne`, {params: {food_name}});
+    return this.http.get<IFood>(`${this.base_url}/find/${food_name}`);
   }
 
-  //look into mongoDB for food, if not present call external APIs to retrieve info and save in mongoDB
-  getFoodNutrientsByNameAndSave(food_name: string): Observable<IFood> {
-    return this.getFoodByName(food_name).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if(error.status === 404){
-          return this.nutritionXSvc.getNutrients(food_name).pipe(
-            switchMap((facts) => this.add(facts))
-          )
-        }
-          return new Observable<IFood>()
-      }),
-      map(result => result)
+  searchTerm(query: string): Observable<InstantSearchItemResponse[]> {
+    return this.http.get<InstantSearchResponse>(`${this.base_url}/search/${query}`).pipe(
+      map(result => result.common)
     )
+  }
+
+  typeAheadSearchFood(query:string): Observable<InstantSearchItemResponse[]> {
+    return of(query).pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(q => this.searchTerm(q))
+    );
+  }
+
+
+  selectFood(food_name: string): Observable<IFood> {
+    return this.http.get<IFood>(`${this.base_url}/find/${food_name}`)
   }
 
   search(name?: string, offset?: number, limit?: number ): Observable<IFood[]> {

@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 import * as recipesActions from '../features/recipes/store/recipes.actions';
 import * as appActions from './app.actions';
 import { Recipe } from "../features/recipes/models/recipe.model";
-import { SignIn, User } from "../core/models/user";
+import { SignIn, SignUp, User } from "../core/interfaces/user";
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +47,10 @@ export class StoreFacadeService {
 
   deleteRecipe(id: string): void {
     this.store.dispatch(recipesActions.deleteRecipe({id}))
+  }
+
+  signUp(user: SignUp) {
+    this.store.dispatch(appActions.signUp({user}))
   }
 
   signIn(user: SignIn) {

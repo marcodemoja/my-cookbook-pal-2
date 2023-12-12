@@ -3,7 +3,7 @@ import { createEffect, Actions, ofType } from "@ngrx/effects";
 import { AuthenticationService } from "../core/services/authentication.service";
 import * as appActions from './app.actions';
 import { catchError, exhaustMap, map, of, switchMap, tap } from "rxjs";
-import { LoggedUser } from "../core/models/user";
+import { LoggedUser } from "../core/interfaces/user";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
 
