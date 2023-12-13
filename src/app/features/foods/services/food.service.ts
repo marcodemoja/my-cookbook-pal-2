@@ -1,6 +1,6 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { Observable, catchError, debounceTime, distinctUntilChanged, map, of, switchMap, tap } from 'rxjs';
+import { inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
+import { Observable, debounceTime, distinctUntilChanged, map, of, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IFood } from '../../../shared/interfaces/IFood';
 import { InstantSearchItemResponse, InstantSearchResponse } from '../../../shared/interfaces/nutritionx/responses';

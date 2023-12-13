@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, Signal, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, ViewChild, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatStepperModule } from '@angular/material/stepper';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { InstantSearchItemResponse } from '../../../../shared/interfaces/nutritionx/responses';
@@ -14,6 +14,8 @@ import { Ingredient, Recipe } from '../../models/recipe.model';
 import { ActivatedRoute } from '@angular/router';
 import { FoodService } from '../../../foods/services/food.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { MatIconModule } from '@angular/material/icon';
 
 @UntilDestroy()
 @Component({
@@ -28,10 +30,15 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
     MatStepperModule,
     MatButtonModule,
     SearchFoodComponent,
-    IngredientsFieldsListComponent
+    IngredientsFieldsListComponent,
+    MatIconModule
   ],
   providers: [
-    FoodService
+    FoodService,
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { showError: true }
+    }
   ],
   templateUrl: './add-recipe-page.component.html',
   styleUrl: './add-recipe-page.component.scss',
@@ -44,6 +51,8 @@ export class AddRecipePageComponent {
   private readonly foodSvc = inject(FoodService);
   private readonly route = inject(ActivatedRoute);
 
+  @ViewChild(MatStepper) stepper!: MatStepper;
+
   get step1() { return this.form.controls['step1'] as FormGroup; }
   get step2() { return this.form.controls['step2'] as FormGroup; }
   get step3() { return this.form.controls['step3'] as FormGroup; }
@@ -54,7 +63,7 @@ export class AddRecipePageComponent {
 
   ingredientsSearchResult$!: Observable<InstantSearchItemResponse[]>;
   recipeIngredients$ = new BehaviorSubject<FormGroup[]>([]);
-  recipeData:Signal<Recipe> = this.route.snapshot.data['recipe'];
+  recipeData: Signal<Recipe> = this.route.snapshot.data['recipe'];
 
   form: FormGroup = this.fb.group({
     step1: this.fb.group({
@@ -72,13 +81,20 @@ export class AddRecipePageComponent {
 
   constructor() {
     //populate form from route data signal if editing a recipe
-    if(this.recipeData) {
+    if (this.recipeData) {
       effect(() => {
-        if(this.recipeData() !== null) {
+        if (this.recipeData() !== null) {
           this.populateForm(this.recipeData());
         }
       });
     }
+  }
+
+  setIngredientStepErrorState():boolean {
+    if(this.stepper) {
+      return (this.stepper.steps.get(1)?.interacted && this.step2.get('ingredients')?.value.length === 0 )? true : false
+    }
+    return false;
   }
 
   onSearchIngredients(query: string) {
@@ -104,20 +120,22 @@ export class AddRecipePageComponent {
   }
 
   save() {
-    const recipe: Recipe = {
-      name: this.step1.get('name')?.value,
-      description: this.step1.get('description')?.value,
-      preparation: this.step3.get('preparation')?.value,
-      ingredients: this.step2.get('ingredients')?.getRawValue()
-    }
+    if (this.form.valid) {
+      const recipe: Recipe = {
+        name: this.step1.get('name')?.value,
+        description: this.step1.get('description')?.value,
+        preparation: this.step3.get('preparation')?.value,
+        ingredients: this.step2.get('ingredients')?.getRawValue()
+      }
 
-    const id = this.step1.get('id')?.value;
+      const id = this.step1.get('id')?.value;
 
-    if(id === null) {
-      this.storeFacadeSvc.addRecipe(recipe);
-    } else {
-      recipe.id = id,
-      this.storeFacadeSvc.editRecipe(recipe)
+      if (id === null) {
+        this.storeFacadeSvc.addRecipe(recipe);
+      } else {
+        recipe.id = id,
+          this.storeFacadeSvc.editRecipe(recipe)
+      }
     }
   }
 
@@ -130,10 +148,10 @@ export class AddRecipePageComponent {
 
   }
 
-  private populateIngredientsFormArray(ingredients:Ingredient[]):void {
+  private populateIngredientsFormArray(ingredients: Ingredient[]): void {
     ingredients?.forEach((ingredient) => {
       const fg = this.fb.group({});
-      for(const [propName, value] of Object.entries(ingredient)) {
+      for (const [propName, value] of Object.entries(ingredient)) {
         fg.addControl(propName, this.fb.control(value, Validators.required));
       }
       this.fg_ingredients.push(fg);
