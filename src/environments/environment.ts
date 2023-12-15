@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: "http://localhost:3000",
+  apiBaseUrl: "https://cb-server-kki9.onrender.com",
 }
