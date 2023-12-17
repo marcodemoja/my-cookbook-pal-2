@@ -18,6 +18,9 @@ export class AuthFooterComponent {
   actionClick = new EventEmitter();
 
   @Input()
+  isValidForm = false;
+
+  @Input()
   actionLabel!: string;
 
   onActionClick() {

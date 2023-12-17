@@ -26,6 +26,7 @@ $cookbook-theme: mat.define-light-theme((
 @include mat.tooltip-theme($cookbook-theme);
 @include mat.progress-spinner-theme($cookbook-theme);
 @include mat.card-theme($cookbook-theme);
+@include mat.snack-bar-theme($cookbook-theme);
 
 @include mat.typography-hierarchy($my-typography);
 
