@@ -16,5 +16,5 @@
       }
     </mat-form-field>
   </mat-card-content>
-  <app-auth-footer actionLabel="Sign In" (actionClick)="onSubmit();"></app-auth-footer>
+  <app-auth-footer [isValidForm]="form.valid" actionLabel="Sign In" (actionClick)="onSubmit();"></app-auth-footer>
 </mat-card>
