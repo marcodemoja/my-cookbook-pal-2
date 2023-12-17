@@ -12,17 +12,14 @@ import { StoreFacadeService } from './store/store.facade';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SidebarComponent, HeaderComponent, FooterComponent],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'my-cookbook-pal-2';
   private readonly matIconRegistry = inject(MatIconRegistry);
-  private readonly authSvc = inject(AuthenticationService);
   private readonly storeSvc = inject(StoreFacadeService);
-
-  readonly userIsLogged = this.authSvc.isUserLogged;
 
   constructor() {
     this.storeSvc.verifyToken();

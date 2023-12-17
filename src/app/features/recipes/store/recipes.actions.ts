@@ -21,6 +21,11 @@ export const deleteRecipe = createAction(
   props<{ id: string }>()
 );
 
+export const deleteRecipeSuccess = createAction(
+  `${recipesKey} Delete Recipe Success`,
+  props<{ id: string }>()
+)
+
 export const fetchRecipe = createAction(
   `${recipesKey} Fetch Recipe`,
   props<{id: string}>()

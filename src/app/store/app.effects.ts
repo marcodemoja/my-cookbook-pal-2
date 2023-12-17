@@ -6,6 +6,7 @@ import { catchError, exhaustMap, map, of, switchMap, tap } from "rxjs";
 import { LoggedUser } from "../core/interfaces/user";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export const signIn$ = createEffect(
   (actions$ = inject(Actions), router = inject(Router), authSvc = inject(AuthenticationService)) => {
@@ -33,7 +34,7 @@ export const verifyToken$ = createEffect(
     })
     )
   }, { functional: true}
-)
+);
 
 export const signOut$ = createEffect(
   (actions$ = inject(Actions), authSvc = inject(AuthenticationService)) => {
@@ -42,6 +43,22 @@ export const signOut$ = createEffect(
       tap(() => authSvc.signOut())
     )
   }, { functional: true, dispatch: false}
-)
+);
 
+export const handleError$ = createEffect(
+  (actions$ = inject(Actions), snackbar = inject(MatSnackBar)) => {
+    return actions$.pipe(
+      ofType(appActions.apiError),
+      map(action => action.error),
+      tap((errorMessage) => {
+        snackbar.open(
+          `Error: ${errorMessage}`,
+          'Close',
+          { duration: 3000}
+        );
+      return console.log(errorMessage, 'errorMessage')
 
+      })
+    )
+  }, { functional: true, dispatch: false}
+);

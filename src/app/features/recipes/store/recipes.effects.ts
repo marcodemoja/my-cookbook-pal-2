@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { createEffect, Actions, ofType } from "@ngrx/effects";
 import { catchError, switchMap, of, map, exhaustMap, tap } from 'rxjs';
 import { RecipesApiService } from '../services/recipes-api.service';
-import { fetchRecipes, fetchRecipesSuccess, addRecipe, addRecipeSuccess, editRecipe, editRecipeSuccess, fetchRecipe, fetchRecipeSuccess } from './recipes.actions';
+import { fetchRecipes, fetchRecipesSuccess, addRecipe, addRecipeSuccess, editRecipe, editRecipeSuccess, fetchRecipe, fetchRecipeSuccess, deleteRecipe, deleteRecipeSuccess } from './recipes.actions';
 import {apiError} from '../../../store/app.actions'
 import { HttpErrorResponse } from '@angular/common/http';
 import { Update } from '@ngrx/entity';
@@ -58,6 +58,22 @@ export const fetchRecipe$ = createEffect(
   },
   { functional: true }
 );
+
+export const deleteRecipe$ = createEffect(
+  (actions$ = inject(Actions), recipesApiSvc = inject(RecipesApiService)) => {
+    return actions$.pipe(
+      ofType(deleteRecipe),
+      switchMap((action) => {
+        return recipesApiSvc.delete(action.id).pipe(
+          map(() => deleteRecipeSuccess({id: action.id})),
+          catchError((e: HttpErrorResponse) => {
+            return of(apiError(e))
+          })
+        )
+      })
+    )
+  }, { functional: true}
+)
 
 export const editRecipe$ = createEffect(
   (actions$ = inject(Actions), recipesApiSvc = inject(RecipesApiService)) => {

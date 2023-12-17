@@ -36,7 +36,7 @@ const reducer = createReducer(
       return ({ ...state, selectedRecipe: null })
     }
   }),
-  on(recipesActions.deleteRecipe, (state: RecipesState, { id }) => adapter.removeOne(id, state)),
+  on(recipesActions.deleteRecipeSuccess, (state: RecipesState, { id }) => adapter.removeOne(id, state)),
   on(recipesActions.fetchRecipesSuccess, (state: RecipesState, { recipes }) => adapter.setAll(recipes, { ...state, recipesLoaded: true })),
   on(recipesActions.filterRecipesByName, (state: RecipesState, { query }) => ({ ...state, query })),
   on(recipesActions.addRecipeSuccess, (state: RecipesState, { recipe }) => adapter.addOne(recipe, state))

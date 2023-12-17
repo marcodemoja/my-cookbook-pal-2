@@ -4,3 +4,11 @@
 @mixin background-color($colormap, $value){
   background-color: map.get($colormap, $value);
 }
+
+@mixin responsive($size) {
+  $query: map.get($breakpoints, $size);
+
+    @media #{$query} {
+      @content;
+  }
+}

@@ -33,4 +33,22 @@ $shadow: (
   "light": #ddd,
   "default": #ccc,
   "dark": #aaa
-)
+);
+
+/*breakpoint vars*/
+$mobile-landscape: 568px;
+$tablet: 768px;
+$desktop: 992px;
+
+/*Map for breakpoints*/
+$breakpoints: (
+  "small": (
+    min-width: $mobile-landscape
+  ),
+  "medium": (
+    min-width: $tablet
+  ),
+  "large": (
+    min-width: $desktop
+  )
+);
