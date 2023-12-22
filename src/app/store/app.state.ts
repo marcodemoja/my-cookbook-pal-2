@@ -4,10 +4,12 @@ import * as appActions from './app.actions';
 
 export interface AppState {
   user: LoggedUser|null;
+  showSpinner: boolean;
 }
 
 export const initialState: AppState = {
-  user: null
+  user: null,
+  showSpinner: false
 }
 
 export const reducer = createReducer(

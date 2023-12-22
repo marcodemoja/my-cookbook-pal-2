@@ -1,11 +1,5 @@
-<mat-drawer-container class="wrapper">
-  <mat-drawer class="sidenav" mode="side" opened>
-    <ul class="menu">
-      <li><a [routerLink]="['list']">Recipes Archive</a></li>
-      <li><a [routerLink]="['add']">Add New Recipe</a></li>
-    </ul>
-  </mat-drawer>
-  <mat-drawer-content class="content">
-     <router-outlet></router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+<app-header></app-header>
+  <main class="content">
+    <router-outlet></router-outlet>
+</main>
+<app-footer></app-footer>

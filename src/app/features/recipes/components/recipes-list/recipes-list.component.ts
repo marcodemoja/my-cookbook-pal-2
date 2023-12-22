@@ -39,7 +39,7 @@ export class RecipesListComponent {
 
   constructor() {
     effect(() => {
-      if(this.data().length > 0) {
+      if(this.data()) {
         this.dataSource.data = this.data();
         this.dataSource.paginator = this.paginator;
         this.isLoading = false;

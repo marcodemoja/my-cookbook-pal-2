@@ -8,21 +8,23 @@ import { RecipeSearchRequest } from '../models/recipe.requests';
 @Injectable()
 export class RecipesApiService {
   private readonly http: HttpClient = inject(HttpClient);
-  private readonly apiSuffix = '/recipe'
+  private readonly svcApiUrl = `${environment.apiBaseUrl}/recipe`;
 
   save(recipe: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(`${environment.apiBaseUrl}${this.apiSuffix}/create`, recipe).pipe(
+    return this.http.post<Recipe>(`${this.svcApiUrl}/create`, recipe).pipe(
       map((recipe) => recipe))
   }
 
   edit(recipe: Partial<Recipe>): Observable<{}> {
     console.log(recipe, 'recipe');
-    return this.http.patch(`${environment.apiBaseUrl}${this.apiSuffix}`, recipe, {params: {
+    return this.http.patch(`${this.svcApiUrl}`, recipe, {params: {
       id: recipe.id as string
     }});
   }
 
-  delete(id: string) { }
+  delete(id: string): Observable<string> {
+    return this.http.delete<string>(`${this.svcApiUrl}`, { params: {id}})
+   }
 
   search(params?: RecipeSearchRequest): Observable<Recipe[]> {
     let query_str = ''
@@ -32,12 +34,12 @@ export class RecipesApiService {
       query_str += `offset=${params.offset}&limit=${params.limit}`;
     }
 
-    return this.http.get<Recipe[]>(`${environment.apiBaseUrl}${this.apiSuffix}/search${query_str}`);
+    return this.http.get<Recipe[]>(`${this.svcApiUrl}/search${query_str}`);
   }
 
   fetchByName(name: string) { }
 
   getById(id: string): Observable<Recipe> {
-    return this.http.get<Recipe>(`${environment.apiBaseUrl}${this.apiSuffix}/`, { params: {id}})
+    return this.http.get<Recipe>(`${this.svcApiUrl}/`, { params: {id}})
   }
 }
